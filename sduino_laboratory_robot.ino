@@ -44,42 +44,18 @@
 #define ch_analog3 3
 #define ch_analog4 4
 #define ch_analog5 5
-#define ch_button 6
+#define ch_button_rob 6
 #define ch_firmware 15
-#define ANALOG0 0
-#define ANALOG1 1
-#define ANALOG2 2
-#define ANALOG3 3
-#define ANALOG4 4
-#define ANALOG5 5
-
-#define PWM1_PIN 0
-#define PWM2_PIN 1
-#define WAY1_PIN 12
-#define WAY2_PIN 13
 
 // laboratory channels
 #define ch_r_D 0
 #define ch_r_C 1
 #define ch_r_B 2
-#define ch_button 3
+#define ch_button_lab 3
 #define ch_r_A 4
 #define ch_light 5
 #define ch_sound 6
 #define ch_slider 7
-
-// robot channels
-#define ch_analog0 0
-#define ch_analog1 1
-#define ch_analog2 2
-#define ch_analog3 3
-#define ch_analog4 4
-#define ch_analog5 5
-
-#define ch_firmware  15
-
-#define req_scratchboard 0  // request message from Scratch
-#define mask_scratcharduino 240  // request mask of Scratch+Ardunio
 
 #define LAB 0
 #define ROBOT 1
@@ -90,7 +66,6 @@ byte inByte = 0;  // incoming serial byte
 byte motorDirection = 0;
 byte isMotorOn = 0;
 byte motorPower = 200;
-boolean motorReverse = true;
 
 void setup()
 {
@@ -177,7 +152,7 @@ void loop()
 
           // read  switch, map it to 0 or 1023L
           sensorValue = map(digitalRead(BUTTON), 0, 1, 0, 1023);  
-          sendValue(ch_button, sensorValue);
+          sendValue(ch_button_rob, sensorValue);
 
           sensorValue = analogRead(ANALOG0);
           sendValue(ch_analog0, sensorValue);
@@ -198,7 +173,7 @@ void loop()
 
         case LAB:
           sensorValue = map(digitalRead(BUTTON), LOW, HIGH, 1023, 0);  
-          sendValue(ch_button, sensorValue);
+          sendValue(ch_button_lab, sensorValue);
 
           sensorValue = map(digitalRead(button_crest1), LOW, HIGH, 0, 1023);
           if (sensorValue < 1023) {sensorValue = analogRead(R_A);}
