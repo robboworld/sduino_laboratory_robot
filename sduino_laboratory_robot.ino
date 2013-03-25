@@ -81,8 +81,8 @@ void setup()
 
   switch (device) {
     case LAB:
-      digitalWrite(R_C, HIGH);
-      digitalWrite(R_D, HIGH);
+      digitalWrite(14 + R_C, HIGH);
+      digitalWrite(14 + R_D, HIGH);
 
       //Пускаем волну светодиодов, показывая что загрузилось и Вырубаем сдвиговый регистр светодиодов
 
