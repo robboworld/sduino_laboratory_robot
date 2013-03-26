@@ -113,6 +113,35 @@ void setup()
   }
 }
 
+void Motor1(int pwm, boolean reverse)
+{
+  analogWrite(PWM1_PIN, pwm); //set pwm control, 0 for stop, and 255 for maximum speed
+  if (reverse) {
+    digitalWrite(WAY1_PIN, HIGH);
+  } else {
+    digitalWrite(WAY1_PIN, LOW);
+  }
+}
+        
+void Motor2(int pwm, boolean reverse)
+{
+  analogWrite(PWM2_PIN, pwm);
+  if(reverse) {
+    digitalWrite(WAY2_PIN, HIGH);
+  } else {
+    digitalWrite(WAY2_PIN, LOW);
+  }
+}
+
+void sendValue(byte channel, int value) {
+  byte high = 0;  // high byte to send
+  byte low = 0;  // low byte to send
+  high = (1 << 7) | (channel << 3) | (value >> 7);
+  low =  (0xff >> 1) & value;
+  Serial.write(high);
+  Serial.write(low);
+}
+
 void loop()
 {
   // if we get a valid byte, read analog ins:
@@ -212,33 +241,3 @@ void loop()
     }
   }
 }
-
-void Motor1(int pwm, boolean reverse)
-{
-  analogWrite(PWM1_PIN, pwm); //set pwm control, 0 for stop, and 255 for maximum speed
-  if (reverse) {
-    digitalWrite(WAY1_PIN, HIGH);
-  } else {
-    digitalWrite(WAY1_PIN, LOW);
-  }
-}
-        
-void Motor2(int pwm, boolean reverse)
-{
-  analogWrite(PWM2_PIN, pwm);
-  if(reverse) {
-    digitalWrite(WAY2_PIN, HIGH);
-  } else {
-    digitalWrite(WAY2_PIN, LOW);
-  }
-}
-
-void sendValue(byte channel, int value) {
-  byte high = 0;  // high byte to send
-  byte low = 0;  // low byte to send
-  high = (1 << 7) | (channel << 3) | (value >> 7);
-  low =  (0xff >> 1) & value;
-  Serial.write(high);
-  Serial.write(low);
-}
-
